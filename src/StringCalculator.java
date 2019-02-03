@@ -10,14 +10,23 @@ public class StringCalculator {
 			String value = scan.nextLine();
 			String[] values = value.split(" ");
 			
-			int first = Integer.parseInt(values[0]);
-			System.out.println("first: " + first);
-			int i = 1, result = first;
-			while(i < values.length) {
-				String operator = values[i];		
-				int second = Integer.parseInt(values[i+1]);			
-				result = Calculator.calculate(result, operator, second);			
-				i += 2;
+			if(values.length < 3) {
+				Output.print("식이 부적절합니다.");
+			}
+			else {
+				try {
+					int first = Integer.parseInt(values[0]);
+					int result = first;
+					for(int i=1; i<values.length; i+=2) {
+						String operator = values[i];
+						int second = Integer.parseInt(values[i+1]);
+						result = Calculator.calculate(result, operator, second);
+					}
+					Output.print(result);
+				}
+				catch(NumberFormatException e) {
+					Output.print("식이 부적절합니다.");
+				}
 			}
 		}
 	}
